@@ -1,11 +1,11 @@
 import express from "express";
 import dotenv from "dotenv";
+import cors from "cors";
 import mongoose from "mongoose";
 import cookieParser from "cookie-parser";
 
 // files
 import AuthRoute from "./routes/authRoute.js";
-import UserRoute from "./routes/userRoute.js";
 
 const app = express();
 dotenv.config();
@@ -20,12 +20,12 @@ const connect = async () => {
 };
 
 // middlewares
+app.use(cors());
 app.use(cookieParser());
 app.use(express.json());
 
 // API endpoints
 app.use("/api/auth", AuthRoute);
-app.use("/api/users", UserRoute);
 
 // error handling
 app.use((err, req, res, next) => {

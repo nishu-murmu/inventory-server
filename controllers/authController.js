@@ -22,7 +22,7 @@ export const createUser = async (req, res, next) => {
 };
 export const login = async (req, res, next) => {
   try {
-    const user = await User.findOne({ firstName: req.body.firstName });
+    const user = await User.findOne({ email: req.body.email });
     if (!user) return next(createError(404, "User not found!"));
     const isPasswordCorrect = await bcrypt.compare(
       req.body.password,
@@ -35,9 +35,10 @@ export const login = async (req, res, next) => {
       { id: user._id, isAdmin: user.isAdmin },
       process.env.JWT
     );
+    user.token = token;
     const { password, isAdmin, ...others } = user._doc;
     res
-      .cookie("access token", token, {
+      .cookie("access_token", token, {
         httpOnly: true,
       })
       .status(200)
