@@ -6,6 +6,8 @@ import cookieParser from "cookie-parser";
 
 // files
 import AuthRoute from "./routes/authRoute.js";
+import PurchaseRoute from "./routes/purchaseRoute.js";
+import PurchaseReturnRoute from "./routes/purchaseReturnRoute.js";
 
 const app = express();
 dotenv.config();
@@ -26,6 +28,8 @@ app.use(express.json());
 
 // API endpoints
 app.use("/api/auth", AuthRoute);
+app.use("/api/purchase", PurchaseRoute);
+app.use("/api/purchaseReturn", PurchaseReturnRoute);
 
 // error handling
 app.use((err, req, res, next) => {
