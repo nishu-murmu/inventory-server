@@ -5,7 +5,6 @@ import { createError } from "../utils/error.js";
 export const createPurchase = async (req, res, next) => {
   try {
     const newPurchase = new Purchase({
-      SKU: req.body.SKU,
       Date: req.body.Date,
       quantity: req.body.quantity,
     });

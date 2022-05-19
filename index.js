@@ -6,6 +6,8 @@ import cookieParser from "cookie-parser";
 
 // files
 import AuthRoute from "./routes/authRoute.js";
+import MasterRoute from "./routes/masterRoute.js";
+import SalesRoute from "./routes/salesRoute.js";
 import PurchaseRoute from "./routes/purchaseRoute.js";
 import PurchaseReturnRoute from "./routes/purchaseReturnRoute.js";
 
@@ -28,8 +30,10 @@ app.use(express.json());
 
 // API endpoints
 app.use("/api/auth", AuthRoute);
+app.use("/api/master", MasterRoute);
 app.use("/api/purchase", PurchaseRoute);
 app.use("/api/purchaseReturn", PurchaseReturnRoute);
+app.use("/api/sales", SalesRoute);
 
 // error handling
 app.use((err, req, res, next) => {

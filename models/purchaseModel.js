@@ -2,13 +2,8 @@ import mongoose from "mongoose";
 
 const PurchaseSchema = new mongoose.Schema(
   {
-    SKU: {
-      type: String,
-      required: true,
-      unique: true,
-    },
     Date: {
-      type: String,
+      type: Date,
       required: true,
     },
     quantity: {
