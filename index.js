@@ -47,6 +47,11 @@ app.use((err, req, res, next) => {
   });
 });
 
+// Getting some confirmation message
+app.use("/", (req, res) => {
+  res.send("Backend working");
+});
+
 app.listen("3001", () => {
   connect();
   console.log("Connected to backend");
