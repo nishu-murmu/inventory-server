@@ -6,10 +6,10 @@ const router = express.Router();
 
 // REGISTER
 router.post("/register", createUser);
-router.get("/register", (req, res) => {
-  res.send("Register ho raha hai!");
-});
 // LOGIN
 router.post("/login", login);
-
+// checking if it is working
+router.get("/", (req, res) => {
+  res.send("Authentication working");
+});
 export default router;

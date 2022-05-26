@@ -15,4 +15,8 @@ router.put("/update/:id", updatePurchaseReturn);
 router.delete("/delete/:id", deletePurchaseReturn);
 router.get("/getAll", allPurchaseReturn);
 
+// troubleshooting
+router.get("/", (req, res) => {
+  res.send("purchase return working");
+});
 export default router;

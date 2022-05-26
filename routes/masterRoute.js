@@ -5,5 +5,8 @@ const router = express.Router();
 
 router.post("/store", store);
 router.get("/getall", getAll);
-
+// troubleshooting
+router.get("/", (req, res) => {
+  res.send("Master SKU working");
+});
 export default router;

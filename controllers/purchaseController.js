@@ -1,10 +1,10 @@
 import Purchase from "../models/purchaseModel.js";
-import { createError } from "../utils/error.js";
 
 // CREATE Sales
 export const createPurchase = async (req, res, next) => {
   try {
     const newPurchase = new Purchase({
+      mastersku: req.body.mastersku,
       Date: req.body.Date,
       quantity: req.body.quantity,
     });
