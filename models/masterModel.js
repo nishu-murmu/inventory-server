@@ -1,9 +1,17 @@
 import mongoose from "mongoose";
 
 const MasterSKU = mongoose.Schema({
-  masterSKUtable: {
-    type: Array,
-    required: true,
+  grand_parent: {
+    type: String,
+  },
+  parent: {
+    type: String,
+  },
+  child: {
+    type: String,
+  },
+  mastersku: {
+    type: String,
   },
 });
 

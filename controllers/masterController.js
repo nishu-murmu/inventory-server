@@ -1,11 +1,15 @@
 import MasterSKU from "../models/masterModel.js";
-import { createError } from "../utils/error.js";
 
 // store all the master SKUs in database
 export const store = async (req, res, next) => {
   try {
-    const collectedData = await MasterSKU.insertMany(req.body);
-    res.status(200).json(collectedData);
+    const newData = new MasterSKU({
+      grand_parent: req.body.grand_parent,
+      parent: req.body.parent,
+      child: req.body.child,
+      mastersku: req.body.mastersku,
+    });
+    const savedData = await newData.save();
   } catch (err) {
     next(err);
   }
