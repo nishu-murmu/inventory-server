@@ -4,7 +4,7 @@ import { createError } from "../utils/error.js";
 // store all the master SKUs in database
 export const store = async (req, res, next) => {
   try {
-    const collectedData = await MasterSKU.insertMany(req.array);
+    const collectedData = await MasterSKU.insertMany(req.body);
     res.status(200).json(collectedData);
   } catch (err) {
     next(err);
