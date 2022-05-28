@@ -4,10 +4,7 @@ const SalesSchema = new mongoose.Schema({
   AWB: {
     type: String,
   },
-  "ORDER ID ": {
-    type: String,
-  },
-  "PORTAL ": {
+  ORDER_ID: {
     type: String,
   },
   QTY: {
@@ -25,7 +22,7 @@ const SalesSchema = new mongoose.Schema({
   firm: {
     type: String,
   },
-  "order id for scan": {
+  "PORTAL\r": {
     type: String,
   },
 });
