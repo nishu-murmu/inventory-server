@@ -7,6 +7,10 @@ const SalesSchema = new mongoose.Schema({
   ORDER_ID: {
     type: String,
   },
+  status: {
+    type: String,
+    default: "pending",
+  },
   QTY: {
     type: String,
   },

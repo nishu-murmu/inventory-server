@@ -17,3 +17,14 @@ export const getAll = async (req, res, next) => {
     next(err);
   }
 };
+
+export const filter = async (req, res, next) => {
+  try {
+    const allSales = await Sales.find({
+      AWB: req.body.awb,
+    });
+    res.status(200).json(allSales);
+  } catch (err) {
+    next(err);
+  }
+};

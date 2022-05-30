@@ -1,10 +1,11 @@
 import express from "express";
 
-import { createArray, getAll } from "../controllers/salesController.js";
+import { createArray, getAll, filter } from "../controllers/salesController.js";
 const router = express.Router();
 
 router.post("/create", createArray);
 router.get("/getAll", getAll);
+router.post("/filter", filter);
 
 // troubleshooting
 router.get("/", (req, res) => {
