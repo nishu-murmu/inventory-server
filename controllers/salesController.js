@@ -18,12 +18,34 @@ export const getAll = async (req, res, next) => {
   }
 };
 
+export const update = async (req, res, next) => {
+  try {
+    const allSales = await Sales.updateOne(
+      { AWB: req.body.awb },
+      { status: req.body.status }
+    );
+    res.status(200).json(allSales);
+  } catch (err) {
+    next(err);
+  }
+};
+
 export const filter = async (req, res, next) => {
   try {
-    const allSales = await Sales.find({
+    const filterList = await Sales.find({
       AWB: req.body.awb,
     });
-    res.status(200).json(allSales);
+    res.status(200).json(filterList);
+  } catch (err) {
+    next(err);
+  }
+};
+export const productsFilter = async (req, res, next) => {
+  try {
+    const filterList = await Sales.find({
+      status: req.body.status,
+    });
+    res.status(200).json(filterList);
   } catch (err) {
     next(err);
   }

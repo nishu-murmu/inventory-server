@@ -18,12 +18,24 @@ export const getSalesReturn = async (req, res, next) => {
   }
 };
 
+export const update = async (req, res, next) => {
+  try {
+    const allSalesReturn = await SalesReturn.updateOne(
+      { AWB: req.body.awb },
+      { status: req.body.status }
+    );
+    res.status(200).json(allSalesReturn);
+  } catch (err) {
+    next(err);
+  }
+};
+
 export const filter = async (req, res, next) => {
   try {
-    const allSalesReturn = await SalesReturn.find({
-      "AWB NO": req.body.awb,
+    const filterList = await SalesReturn.find({
+      AWB: req.body.awb,
     });
-    res.status(200).json(allSalesReturn);
+    res.status(200).json(filterList);
   } catch (err) {
     next(err);
   }
