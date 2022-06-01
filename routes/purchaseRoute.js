@@ -14,6 +14,7 @@ router.post("/create", createPurchase);
 router.put("/update/:id", updatePurchase);
 router.delete("/delete/:id", deletePurchase);
 router.get("/getAll", allPurchase);
+// troubleshooting
 router.get("/", (req, res) => {
   res.send("Purchase working");
 });

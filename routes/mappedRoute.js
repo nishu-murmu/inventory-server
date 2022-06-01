@@ -5,4 +5,8 @@ const router = express.Router();
 router.post("/createMapped", createMapped);
 router.get("/getAllMapped", getMapped);
 
+// troubleshooting
+router.get("/", (req, res) => {
+  res.send("Mapped working");
+});
 export default router;

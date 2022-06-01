@@ -15,6 +15,7 @@ import PurchaseReturnRoute from "./routes/purchaseReturnRoute.js";
 
 const app = express();
 dotenv.config();
+const port = process.env.PORT || 5000;
 
 const connect = async () => {
   try {
@@ -59,7 +60,7 @@ app.use("/", (req, res) => {
   res.send("Backend working");
 });
 
-app.listen("3001", () => {
+app.listen(port, () => {
   connect();
   console.log("Connected to backend");
 });
