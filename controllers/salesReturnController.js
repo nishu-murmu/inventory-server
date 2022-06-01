@@ -44,17 +44,7 @@ export const filter = async (req, res, next) => {
 export const dispatchFilter = async (req, res, next) => {
   try {
     const filterList = await SalesReturn.find({
-      status: { $eq: "dispatch" },
-    });
-    res.status(200).json(filterList);
-  } catch (err) {
-    next(err);
-  }
-};
-export const pendingFilter = async (req, res, next) => {
-  try {
-    const filterList = await SalesReturn.find({
-      status: { $eq: "pending" },
+      "Return Received Date": { $exists: true },
     });
     res.status(200).json(filterList);
   } catch (err) {

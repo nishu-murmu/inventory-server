@@ -20,7 +20,7 @@ const SalesReturnSchema = mongoose.Schema({
     type: String,
     default: "pending",
   },
-  "Return Received Data": {
+  "Return Received Date": {
     type: String,
   },
   "WRONG RETURN": {
