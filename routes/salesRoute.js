@@ -5,7 +5,8 @@ import {
   getAll,
   update,
   filter,
-  // productsFilter,
+  dispatchFilter,
+  pendingFilter,
 } from "../controllers/salesController.js";
 const router = express.Router();
 
@@ -13,7 +14,8 @@ router.post("/create", createArray);
 router.get("/getAll", getAll);
 router.put("/update", update);
 router.put("/filter", filter);
-// router.put("productsfilter", productsFilter);
+router.get("/dispatchfilter", dispatchFilter);
+router.get("/pendingfilter", pendingFilter);
 
 // troubleshooting
 router.get("/", (req, res) => {

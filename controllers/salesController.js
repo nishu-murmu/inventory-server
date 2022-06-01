@@ -40,10 +40,20 @@ export const filter = async (req, res, next) => {
     next(err);
   }
 };
-export const productsFilter = async (req, res, next) => {
+export const dispatchFilter = async (req, res, next) => {
   try {
     const filterList = await Sales.find({
-      status: req.body.status,
+      status: { $eq: "dispatch" },
+    });
+    res.status(200).json(filterList);
+  } catch (err) {
+    next(err);
+  }
+};
+export const pendingFilter = async (req, res, next) => {
+  try {
+    const filterList = await Sales.find({
+      status: { $eq: "pending" },
     });
     res.status(200).json(filterList);
   } catch (err) {
