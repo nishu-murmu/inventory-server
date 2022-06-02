@@ -29,7 +29,7 @@ const SalesReturnSchema = mongoose.Schema({
   "Return Request Date": {
     type: String,
   },
-  "Return Received Date As Per Website": {
+  "Return Delivered Date As Per Website": {
     type: String,
   },
   Portal: {

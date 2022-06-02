@@ -44,7 +44,11 @@ export const filter = async (req, res, next) => {
 export const dispatchFilter = async (req, res, next) => {
   try {
     const filterList = await SalesReturn.find({
-      "Return Received Date": { $exists: true },
+      $and: [
+        { "Return Request Date": { $exists: true } },
+        { "Return Delivered Date As Per Website": { $exists: true } },
+        { "Return Received Date": { $exists: false } },
+      ],
     });
     res.status(200).json(filterList);
   } catch (err) {

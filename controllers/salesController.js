@@ -11,7 +11,9 @@ export const createArray = async (req, res, next) => {
 
 export const getAll = async (req, res, next) => {
   try {
-    const allSales = await Sales.find();
+    const allSales = await Sales.find({
+      status: { $eq: "cancel" },
+    });
     res.status(200).json(allSales);
   } catch (err) {
     next(err);

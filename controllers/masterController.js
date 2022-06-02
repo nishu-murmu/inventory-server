@@ -18,7 +18,7 @@ export const store = async (req, res, next) => {
 // get all the master SKUs
 export const getAll = async (req, res, next) => {
   try {
-    const allMasterSKUs = await MasterSKU.find();
+    const allMasterSKUs = await MasterSKU.find().sort({ mastersku: 1 });
     res.status(200).json(allMasterSKUs);
   } catch (err) {
     next(err);
