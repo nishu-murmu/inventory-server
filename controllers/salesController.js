@@ -62,3 +62,13 @@ export const pendingFilter = async (req, res, next) => {
     next(err);
   }
 };
+export const filterCount = async (req, res, next) => {
+  try {
+    const count = await Sales.find({
+      status: { $eq: req.body.status },
+    }).count();
+    res.status(200).json(count);
+  } catch (err) {
+    next(err);
+  }
+};
