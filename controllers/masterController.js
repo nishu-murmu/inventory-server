@@ -8,6 +8,7 @@ export const store = async (req, res, next) => {
       parent: req.body.parent,
       child: req.body.child,
       mastersku: req.body.mastersku,
+      combo: req.body.combo,
     });
     const savedData = await newData.save();
   } catch (err) {

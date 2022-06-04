@@ -13,6 +13,9 @@ const MasterSKU = mongoose.Schema({
   mastersku: {
     type: String,
   },
+  combo: {
+    type: Array,
+  },
 });
 
 export default mongoose.model("masterSKUinfos", MasterSKU);
