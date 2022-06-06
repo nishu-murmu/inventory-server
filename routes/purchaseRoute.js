@@ -11,8 +11,8 @@ import {
 const router = express.Router();
 
 router.post("/create", createPurchase);
-router.put("/update/:id", updatePurchase);
-router.delete("/delete/:id", deletePurchase);
+router.put("/update", updatePurchase);
+router.delete("/delete", deletePurchase);
 router.get("/getAll", allPurchase);
 // troubleshooting
 router.get("/", (req, res) => {

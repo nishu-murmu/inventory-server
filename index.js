@@ -6,6 +6,7 @@ import cookieParser from "cookie-parser";
 
 // files
 import AuthRoute from "./routes/authRoute.js";
+import LiveRoute from "./routes/liveRoute.js";
 import MasterRoute from "./routes/masterRoute.js";
 import MappedRoute from "./routes/mappedRoute.js";
 import UnMappedRoute from "./routes/unmappedRoute.js";
@@ -37,6 +38,7 @@ app.use(
 
 // API endpoints
 app.use("/api/auth", AuthRoute);
+app.use("/api/livestock", LiveRoute);
 app.use("/api/master", MasterRoute);
 app.use("/api/mapped", MappedRoute);
 app.use("/api/unmapped", UnMappedRoute);

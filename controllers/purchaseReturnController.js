@@ -18,8 +18,8 @@ export const createPurchaseReturn = async (req, res, next) => {
 // UPDATE Sales
 export const updatePurchaseReturn = async (req, res, next) => {
   try {
-    const updatePurchaseReturn = await PurchaseReturn.findByIdAndUpdate(
-      req.params.id,
+    const updatePurchaseReturn = await PurchaseReturn.findOne(
+      { mastersku: req.body.mastersku },
       { $set: req.body },
       { new: true }
     );
@@ -32,7 +32,9 @@ export const updatePurchaseReturn = async (req, res, next) => {
 // DELETE Sales
 export const deletePurchaseReturn = async (req, res, next) => {
   try {
-    await PurchaseReturn.findByIdAndDelete(req.params.id);
+    await PurchaseReturn.deleteOne({
+      mastersku: req.body.mastersku,
+    });
     res.status(200).json("Product has been deleted!");
   } catch (err) {
     next(err);
