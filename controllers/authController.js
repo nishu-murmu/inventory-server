@@ -13,6 +13,7 @@ export const createUser = async (req, res, next) => {
       lastName: req.body.lastName,
       email: req.body.email,
       password: hash,
+      isAdmin: false,
     });
     const savedUser = await newUser.save();
     res.status(200).json(savedUser);
