@@ -19,6 +19,9 @@ const LiveStock = mongoose.Schema({
   salesReturn: {
     type: Number,
   },
+  date: {
+    type: Date,
+  },
   livestock: {
     type: Number,
   },

@@ -49,37 +49,3 @@ export const allPurchase = async (req, res, next) => {
     next(err);
   }
 };
-
-export const mergedData = async (req, res, next) => {
-  try {
-    const mergedList = await Purchase.aggregate([
-      {
-        $lookup: {
-          from: "purchasereturninfos",
-          localField: "mastersku",
-          foreignField: "mastersku",
-          as: "purchaseReturn",
-        },
-      },
-      {
-        $lookup: {
-          from: "salesinfos",
-          localField: "mastersku",
-          foreignField: "SKU",
-          as: "sales",
-        },
-      },
-      {
-        $lookup: {
-          from: "salesreturninfos",
-          localField: "mastersku",
-          foreignField: "SKU",
-          as: "salesreturn",
-        },
-      },
-    ]);
-    res.status(200).json(mergedList);
-  } catch (err) {
-    next(err);
-  }
-};

@@ -1,10 +1,11 @@
 import express from "express";
-import { store, getAll } from "../controllers/masterController.js";
+import { store, getAll, mergeData } from "../controllers/masterController.js";
 
 const router = express.Router();
 
 router.post("/store", store);
 router.get("/getAll", getAll);
+router.get("/merged", mergeData);
 // troubleshooting
 router.get("/", (req, res) => {
   res.send("Master SKU working");

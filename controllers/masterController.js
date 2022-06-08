@@ -25,3 +25,45 @@ export const getAll = async (req, res, next) => {
     next(err);
   }
 };
+
+export const mergeData = async (req, res, next) => {
+  try {
+    const mergedList = await MasterSKU.aggregate([
+      {
+        $lookup: {
+          from: "purchaseinfos",
+          localField: "mastersku",
+          foreignField: "mastersku",
+          as: "purchase",
+        },
+      },
+      {
+        $lookup: {
+          from: "purchasereturninfos",
+          localField: "mastersku",
+          foreignField: "mastersku",
+          as: "purchaseReturn",
+        },
+      },
+      {
+        $lookup: {
+          from: "salesinfos",
+          localField: "mastersku",
+          foreignField: "SKU",
+          as: "sales",
+        },
+      },
+      {
+        $lookup: {
+          from: "salesreturninfos",
+          localField: "mastersku",
+          foreignField: "SKU",
+          as: "salesreturn",
+        },
+      },
+    ]);
+    res.status(200).json(mergedList);
+  } catch (err) {
+    next(err);
+  }
+};

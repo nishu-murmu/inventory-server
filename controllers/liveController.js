@@ -2,34 +2,34 @@ import LiveStock from "../models/liveModel.js";
 
 export const create = async (req, res, next) => {
   try {
-    const createList = await LiveStock.insertMany(req.body);
-    res.status(200).json(createList);
+    const {
+      mastersku,
+      purchase,
+      purchaseReturn,
+      sales,
+      salesReturn,
+      livestock,
+    } = req.body;
+    const createList = new LiveStock({
+      mastersku: mastersku,
+      purchase: purchase,
+      purchaseReturn: purchaseReturn,
+      sales: sales,
+      salesReturn: salesReturn,
+      livestock: livestock,
+      date: Date.now(),
+    });
+    const updatedList = await createList.save();
+    res.status(200).json(updatedList);
   } catch (err) {
     next(err);
   }
 };
 
-export const calculations = async (req, res, next) => {
+export const getAll = async (req, res, next) => {
   try {
-    const updateList = await LiveStock.aggregate([
-      {
-        $project: {
-          mastersku: 1,
-          sales: 1,
-          purchase: 1,
-          purchaseReturn: 1,
-          opening_stock: 1,
-          salesReturn: 1,
-          livestock: {
-            $subtract: [
-              { $add: ["$purchase", "$salesReturn"] },
-              { $add: ["$sales", "$purchaseReturn"] },
-            ],
-          },
-        },
-      },
-    ]);
-    res.status(200).json(updateList);
+    const final = await LiveStock.find();
+    res.status(200).json(final);
   } catch (err) {
     next(err);
   }

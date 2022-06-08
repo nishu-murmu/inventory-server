@@ -1,11 +1,10 @@
 import express from "express";
 // files
-import { create, calculations } from "../controllers/liveController.js";
-import { verifyToken } from "../utils/verifyTokens.js";
+import { create, getAll } from "../controllers/liveController.js";
 
 const router = express.Router();
 
 router.post("/create", create);
-router.put("/calculations", calculations);
+router.get("/getAll", getAll);
 
 export default router;
