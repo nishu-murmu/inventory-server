@@ -2,7 +2,6 @@ import express from "express";
 // files
 import {
   createSalesReturn,
-  getSalesReturn,
   update,
   filter,
   receivedFilter,
@@ -14,7 +13,6 @@ import {
 const router = express.Router();
 
 router.post("/create", createSalesReturn);
-router.get("/getAll", getSalesReturn);
 router.put("/update", update);
 router.put("/filter", filter);
 router.get("/receivedfilter", receivedFilter);

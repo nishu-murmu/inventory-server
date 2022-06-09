@@ -9,19 +9,10 @@ export const createSalesReturn = async (req, res, next) => {
   }
 };
 
-export const getSalesReturn = async (req, res, next) => {
-  try {
-    const getSalesReturnList = await SalesReturn.find();
-    res.status(200).json(getSalesReturnList);
-  } catch (err) {
-    next(err);
-  }
-};
-
 export const update = async (req, res, next) => {
   try {
     const allSalesReturn = await SalesReturn.updateOne(
-      { AWB: req.body.awb },
+      { "AWB NO": req.body.awb },
       { status: req.body.status }
     );
     res.status(200).json(allSalesReturn);
@@ -33,7 +24,7 @@ export const update = async (req, res, next) => {
 export const filter = async (req, res, next) => {
   try {
     const filterList = await SalesReturn.find({
-      AWB: req.body.awb,
+      "AWB NO": req.body.awb,
     });
     res.status(200).json(filterList);
   } catch (err) {
@@ -54,7 +45,7 @@ export const receivedFilter = async (req, res, next) => {
 
 export const partialFilter = async (req, res, next) => {
   try {
-    const filterList = await Sales.find({
+    const filterList = await SalesReturn.find({
       status: { $eq: "partial" },
     });
     res.status(200).json(filterList);
@@ -64,7 +55,7 @@ export const partialFilter = async (req, res, next) => {
 };
 export const wrongfilter = async (req, res, next) => {
   try {
-    const filterList = await Sales.find({
+    const filterList = await SalesReturn.find({
       status: { $eq: "wrong" },
     });
     res.status(200).json(filterList);
@@ -74,7 +65,7 @@ export const wrongfilter = async (req, res, next) => {
 };
 export const filterCount = async (req, res, next) => {
   try {
-    const count = await Sales.find({
+    const count = await SalesReturn.find({
       status: { $eq: req.body.status },
     }).count();
     res.status(200).json(count);
