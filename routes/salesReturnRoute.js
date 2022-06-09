@@ -5,8 +5,7 @@ import {
   getSalesReturn,
   update,
   filter,
-  dispatchFilter,
-  pendingFilter,
+  receivedFilter,
   partialFilter,
   wrongfilter,
   filterCount,
@@ -18,8 +17,7 @@ router.post("/create", createSalesReturn);
 router.get("/getAll", getSalesReturn);
 router.put("/update", update);
 router.put("/filter", filter);
-router.get("/dispatchfilter", dispatchFilter);
-router.get("/pendingfilter", pendingFilter);
+router.get("/receivedfilter", receivedFilter);
 router.get("/partialfilter", partialFilter);
 router.get("/wrongfilter", wrongfilter);
 router.get("/filterCount", filterCount);
