@@ -43,14 +43,49 @@ export const filter = async (req, res, next) => {
 
 export const dispatchFilter = async (req, res, next) => {
   try {
-    const filterList = await SalesReturn.find({
-      $and: [
-        { "Return Request Date": { $exists: true } },
-        { "Return Delivered Date As Per Website": { $exists: true } },
-        { "Return Received Date": { $exists: false } },
-      ],
+    const filterList = await SalesReturn.find();
+    res.status(200).json(filterList);
+  } catch (err) {
+    next(err);
+  }
+};
+
+export const pendingFilter = async (req, res, next) => {
+  try {
+    const filterList = await Sales.find({
+      status: { $eq: "pending" },
     });
     res.status(200).json(filterList);
+  } catch (err) {
+    next(err);
+  }
+};
+export const partialFilter = async (req, res, next) => {
+  try {
+    const filterList = await Sales.find({
+      status: { $eq: "partial" },
+    });
+    res.status(200).json(filterList);
+  } catch (err) {
+    next(err);
+  }
+};
+export const wrongfilter = async (req, res, next) => {
+  try {
+    const filterList = await Sales.find({
+      status: { $eq: "wrong" },
+    });
+    res.status(200).json(filterList);
+  } catch (err) {
+    next(err);
+  }
+};
+export const filterCount = async (req, res, next) => {
+  try {
+    const count = await Sales.find({
+      status: { $eq: req.body.status },
+    }).count();
+    res.status(200).json(count);
   } catch (err) {
     next(err);
   }
