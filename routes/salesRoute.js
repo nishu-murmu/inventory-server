@@ -5,18 +5,16 @@ import {
   getAll,
   update,
   filter,
+  AWBfilter,
   filterCount,
-  dispatchFilter,
-  pendingFilter,
 } from "../controllers/salesController.js";
 const router = express.Router();
 
 router.post("/create", createArray);
-router.get("/cancelfilter", getAll);
 router.put("/update", update);
+router.get("/getAll", getAll);
+router.put("/awbfilter", AWBfilter);
 router.put("/filter", filter);
-router.get("/dispatchfilter", dispatchFilter);
-router.get("/pendingfilter", pendingFilter);
 router.put("/filterCount", filterCount);
 
 // troubleshooting

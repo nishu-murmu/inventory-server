@@ -1,5 +1,5 @@
 import Sales from "../models/salesModel.js";
-
+// store the scan files data
 export const createArray = async (req, res, next) => {
   try {
     const collectedArray = await Sales.insertMany(req.body);
@@ -8,18 +8,7 @@ export const createArray = async (req, res, next) => {
     next(err);
   }
 };
-
-export const getAll = async (req, res, next) => {
-  try {
-    const allSales = await Sales.find({
-      status: { $eq: "cancel" },
-    });
-    res.status(200).json(allSales);
-  } catch (err) {
-    next(err);
-  }
-};
-
+// update the status
 export const update = async (req, res, next) => {
   try {
     const allSales = await Sales.updateOne(
@@ -31,8 +20,16 @@ export const update = async (req, res, next) => {
     next(err);
   }
 };
-
-export const filter = async (req, res, next) => {
+export const getAll = async (req, res, next) => {
+  try {
+    const FullList = await Sales.find();
+    res.status(200).json(FullList);
+  } catch (err) {
+    next(err);
+  }
+};
+// show the current scanned product
+export const AWBfilter = async (req, res, next) => {
   try {
     const filterList = await Sales.find({
       AWB: req.body.awb,
@@ -42,26 +39,18 @@ export const filter = async (req, res, next) => {
     next(err);
   }
 };
-export const dispatchFilter = async (req, res, next) => {
+// status filters
+export const filter = async (req, res, next) => {
   try {
     const filterList = await Sales.find({
-      status: { $eq: "dispatch" },
+      status: { $eq: req.body.filter },
     });
     res.status(200).json(filterList);
   } catch (err) {
     next(err);
   }
 };
-export const pendingFilter = async (req, res, next) => {
-  try {
-    const filterList = await Sales.find({
-      status: { $eq: "pending" },
-    });
-    res.status(200).json(filterList);
-  } catch (err) {
-    next(err);
-  }
-};
+// filter Count
 export const filterCount = async (req, res, next) => {
   try {
     const count = await Sales.find({
