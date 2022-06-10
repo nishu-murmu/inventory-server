@@ -4,7 +4,7 @@ const SalesSchema = new mongoose.Schema({
   AWB: {
     type: String,
   },
-  ORDER_ID: {
+  "ORDER ID": {
     type: String,
   },
   status: {
