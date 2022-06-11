@@ -13,7 +13,7 @@ export const update = async (req, res, next) => {
   try {
     const allSales = await Sales.updateOne(
       { AWB: req.body.awb },
-      { status: req.body.status }
+      { status: req.body.status, date: req.body.date.toString() }
     );
     res.status(200).json(allSales);
   } catch (err) {

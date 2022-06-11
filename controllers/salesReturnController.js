@@ -8,7 +8,6 @@ export const createSalesReturn = async (req, res, next) => {
     next(err);
   }
 };
-
 export const update = async (req, res, next) => {
   try {
     const allSalesReturn = await SalesReturn.updateOne(
@@ -16,6 +15,16 @@ export const update = async (req, res, next) => {
       { status: req.body.status }
     );
     res.status(200).json(allSalesReturn);
+  } catch (err) {
+    next(err);
+  }
+};
+export const received = async (req, res, next) => {
+  try {
+    const receivedData = await SalesReturn.find({
+      "Return Received Date": { $exists: true, $ne: "" },
+    });
+    res.status(200).json(receivedData);
   } catch (err) {
     next(err);
   }
