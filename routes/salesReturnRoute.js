@@ -14,7 +14,7 @@ router.post("/create", createSalesReturn);
 router.put("/update", update);
 router.put("/awbfilter", awbfilter);
 router.put("/filter", filter);
-router.get("/filterCount", filterCount);
+router.put("/filterCount", filterCount);
 // troubleshooting
 router.get("/", (req, res) => {
   res.send("Sales Return working");

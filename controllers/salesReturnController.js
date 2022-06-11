@@ -20,7 +20,6 @@ export const update = async (req, res, next) => {
     next(err);
   }
 };
-
 export const awbfilter = async (req, res, next) => {
   try {
     const filterList = await SalesReturn.find({
