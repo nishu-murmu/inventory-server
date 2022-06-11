@@ -5,7 +5,7 @@ import {
   getAll,
   update,
   filter,
-  AWBfilter,
+  awbfilter,
   filterCount,
 } from "../controllers/salesController.js";
 const router = express.Router();
@@ -13,7 +13,7 @@ const router = express.Router();
 router.post("/create", createArray);
 router.put("/update", update);
 router.get("/getAll", getAll);
-router.put("/awbfilter", AWBfilter);
+router.put("/awbfilter", awbfilter);
 router.put("/filter", filter);
 router.put("/filterCount", filterCount);
 

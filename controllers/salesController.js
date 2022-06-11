@@ -29,7 +29,7 @@ export const getAll = async (req, res, next) => {
   }
 };
 // show the current scanned product
-export const AWBfilter = async (req, res, next) => {
+export const awbfilter = async (req, res, next) => {
   try {
     const filterList = await Sales.find({
       AWB: req.body.awb,

@@ -3,10 +3,8 @@ import express from "express";
 import {
   createSalesReturn,
   update,
+  awbfilter,
   filter,
-  receivedFilter,
-  partialFilter,
-  wrongfilter,
   filterCount,
 } from "../controllers/salesReturnController.js";
 
@@ -14,10 +12,8 @@ const router = express.Router();
 
 router.post("/create", createSalesReturn);
 router.put("/update", update);
+router.put("/awbfilter", awbfilter);
 router.put("/filter", filter);
-router.get("/receivedfilter", receivedFilter);
-router.get("/partialfilter", partialFilter);
-router.get("/wrongfilter", wrongfilter);
 router.get("/filterCount", filterCount);
 // troubleshooting
 router.get("/", (req, res) => {
