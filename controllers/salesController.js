@@ -25,19 +25,14 @@ export const update = async (req, res, next) => {
     next(err);
   }
 };
-export const getAll = async (req, res, next) => {
-  try {
-    const FullList = await Sales.find();
-    res.status(200).json(FullList);
-  } catch (err) {
-    next(err);
-  }
-};
 // show the current scanned product
 export const awbfilter = async (req, res, next) => {
   try {
     const filterList = await Sales.find({
       AWB: req.body.awb,
+      $set: {
+        date: req.body.date,
+      },
     });
     res.status(200).json(filterList);
   } catch (err) {
@@ -51,6 +46,14 @@ export const filter = async (req, res, next) => {
       status: { $eq: req.body.filter },
     });
     res.status(200).json(filterList);
+  } catch (err) {
+    next(err);
+  }
+};
+export const getAll = async (req, res, next) => {
+  try {
+    const FullList = await Sales.find();
+    res.status(200).json(FullList);
   } catch (err) {
     next(err);
   }

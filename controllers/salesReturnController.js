@@ -38,6 +38,9 @@ export const awbfilter = async (req, res, next) => {
   try {
     const filterList = await SalesReturn.find({
       "AWB NO": req.body.awb,
+      $set: {
+        "Return Received Date": req.body.date,
+      },
     });
     res.status(200).json(filterList);
   } catch (err) {
