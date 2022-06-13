@@ -13,7 +13,12 @@ export const update = async (req, res, next) => {
   try {
     const allSales = await Sales.updateOne(
       { AWB: req.body.awb },
-      { status: req.body.status, date: req.body.date }
+      {
+        $set: {
+          status: req.body.status,
+          date: req.body.date,
+        },
+      }
     );
     res.status(200).json(allSales);
   } catch (err) {
