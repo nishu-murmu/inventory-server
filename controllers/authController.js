@@ -48,3 +48,10 @@ export const login = async (req, res, next) => {
     next(err);
   }
 };
+export const authentication = async (req, res, next) => {
+  try {
+    res.status(200);
+  } catch (err) {
+    next(err);
+  }
+};

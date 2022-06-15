@@ -3,7 +3,15 @@ import Sales from "../models/salesModel.js";
 export const createArray = async (req, res, next) => {
   try {
     const collectedArray = await Sales.insertMany(req.body);
-    res.status(200).json(collectedArray);
+    const filteredData = await Sales.createIndexes(
+      {
+        AWB: 1,
+        "ORDER ID": 1,
+        SKU: 1,
+      },
+      { unique: true }
+    );
+    res.status(200).json(filteredData);
   } catch (err) {
     next(err);
   }
@@ -65,6 +73,27 @@ export const filterCount = async (req, res, next) => {
       status: { $eq: req.body.status },
     }).count();
     res.status(200).json(count);
+  } catch (err) {
+    next(err);
+  }
+};
+export const remove = async (req, res, next) => {
+  try {
+    const removedData = await Sales.aggregate([
+      { $project: { "ORDER ID": 1, _id: 0 } },
+      {
+        $unionWith: {
+          coll: "salesinfos",
+          pipeline: [{ $project: { "ORDER ID": 1, _id: 0 } }],
+        },
+      },
+      {
+        $group: {
+          _id: "$ORDER ID",
+        },
+      },
+    ]);
+    res.status(200).json(removedData);
   } catch (err) {
     next(err);
   }
