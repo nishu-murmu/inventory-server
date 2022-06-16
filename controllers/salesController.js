@@ -44,6 +44,10 @@ export const filter = async (req, res, next) => {
   try {
     const filterList = await Sales.find({
       status: { $eq: req.body.filter },
+      date: {
+        $gt: JSON.stringify(new Date(req.body.gt)),
+        $lt: JSON.stringify(new Date(req.body.lt)),
+      },
     });
     res.status(200).json(filterList);
   } catch (err) {
@@ -65,27 +69,6 @@ export const filterCount = async (req, res, next) => {
       status: { $eq: req.body.status },
     }).count();
     res.status(200).json(count);
-  } catch (err) {
-    next(err);
-  }
-};
-export const remove = async (req, res, next) => {
-  try {
-    const removedData = await Sales.aggregate([
-      { $project: { "ORDER ID": 1, _id: 0 } },
-      {
-        $unionWith: {
-          coll: "salesinfos",
-          pipeline: [{ $project: { "ORDER ID": 1, _id: 0 } }],
-        },
-      },
-      {
-        $group: {
-          _id: "$ORDER ID",
-        },
-      },
-    ]);
-    res.status(200).json(removedData);
   } catch (err) {
     next(err);
   }

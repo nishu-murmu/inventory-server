@@ -7,7 +7,6 @@ import {
   filter,
   awbfilter,
   filterCount,
-  remove,
 } from "../controllers/salesController.js";
 const router = express.Router();
 
@@ -17,7 +16,6 @@ router.get("/getAll", getAll);
 router.put("/awbfilter", awbfilter);
 router.put("/filter", filter);
 router.put("/filterCount", filterCount);
-router.get("/remove", remove);
 // troubleshooting
 router.get("/", (req, res) => {
   res.send("Sales working");
