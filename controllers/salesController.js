@@ -3,15 +3,7 @@ import Sales from "../models/salesModel.js";
 export const createArray = async (req, res, next) => {
   try {
     const collectedArray = await Sales.insertMany(req.body);
-    const filteredData = await Sales.createIndexes(
-      {
-        AWB: 1,
-        "ORDER ID": 1,
-        SKU: 1,
-      },
-      { unique: true }
-    );
-    res.status(200).json(filteredData);
+    res.status(200).json(collectedArray);
   } catch (err) {
     next(err);
   }
