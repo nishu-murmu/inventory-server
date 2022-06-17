@@ -44,20 +44,8 @@ export const filter = async (req, res, next) => {
   try {
     const filterList = await Sales.find({
       status: { $eq: req.body.filter },
-      date: {
-        $gt: JSON.stringify(new Date(req.body.gt)),
-        $lt: JSON.stringify(new Date(req.body.lt)),
-      },
     });
     res.status(200).json(filterList);
-  } catch (err) {
-    next(err);
-  }
-};
-export const getAll = async (req, res, next) => {
-  try {
-    const FullList = await Sales.find();
-    res.status(200).json(FullList);
   } catch (err) {
     next(err);
   }

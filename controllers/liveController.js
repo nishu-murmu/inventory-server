@@ -10,12 +10,9 @@ export const create = async (req, res, next) => {
       purchaseReturn: purchaseReturn,
       sales: sales,
       salesReturn: salesReturn,
-      livestock: Math.abs(
-        parseInt(purchase) +
-          parseInt(salesReturn) -
-          (parseInt(sales) + parseInt(purchaseReturn))
-      ),
-      date: new Date().toLocaleDateString().replace(/\//g, "-"),
+      livestock:
+        Math.abs(purchase + salesReturn) -
+        (Math.abs(sales) * -1 + Math.abs(purchaseReturn) * -1),
     });
     const updatedList = await createList.save();
     res.status(200).json(updatedList);
