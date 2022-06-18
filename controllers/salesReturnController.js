@@ -51,7 +51,14 @@ export const awbfilter = async (req, res, next) => {
 export const filter = async (req, res, next) => {
   try {
     const filterList = await SalesReturn.find({
-      status: { $eq: req.body.filter },
+      $and: [
+        {
+          status: { $eq: req.body.filter },
+        },
+        {
+          date: { $gte: req.body.sd, $lte: req.body.ed },
+        },
+      ],
     });
     res.status(200).json(filterList);
   } catch (err) {
@@ -61,7 +68,14 @@ export const filter = async (req, res, next) => {
 export const filterCount = async (req, res, next) => {
   try {
     const count = await SalesReturn.find({
-      status: { $eq: req.body.status },
+      $and: [
+        {
+          status: { $eq: req.body.filter },
+        },
+        {
+          date: { $gte: req.body.sd, $lte: req.body.ed },
+        },
+      ],
     }).count();
     res.status(200).json(count);
   } catch (err) {
