@@ -11,11 +11,30 @@ export const create = async (req, res, next) => {
       sales: sales,
       salesReturn: salesReturn,
       livestock:
-        Math.abs(purchase + salesReturn) -
-        (Math.abs(sales) * -1 + Math.abs(purchaseReturn) * -1),
+        parseInt(purchase) + parseInt(salesReturn) <
+        parseInt(sales) + parseInt(purchaseReturn)
+          ? Math.abs(
+              parseInt(sales) +
+                parseInt(purchaseReturn) -
+                parseInt(purchase) +
+                parseInt(salesReturn)
+            ) * -1
+          : Math.abs(
+              parseInt(sales) +
+                parseInt(purchaseReturn) -
+                parseInt(purchase) +
+                parseInt(salesReturn)
+            ),
     });
     const updatedList = await createList.save();
     res.status(200).json(updatedList);
+  } catch (err) {
+    next(err);
+  }
+};
+export const deleteList = async (req, res, next) => {
+  try {
+    await LiveStock.deleteMany({});
   } catch (err) {
     next(err);
   }

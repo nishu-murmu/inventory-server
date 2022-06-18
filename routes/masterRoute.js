@@ -3,7 +3,7 @@ import { store, getAll, mergeData } from "../controllers/masterController.js";
 
 const router = express.Router();
 
-router.post("/store", store);
+router.post("/create", store);
 router.get("/getAll", getAll);
 router.get("/merged", mergeData);
 // troubleshooting

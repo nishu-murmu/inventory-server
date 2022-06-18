@@ -11,7 +11,7 @@ router.post("/register", createUser);
 router.post("/login", login);
 // CHECK AUTH
 router.get("/checkAuth", verifyToken, (req, res, next) => {
-  res.sendStatus(200);
+  res.status(200).json(0);
 });
 // checking if it is working
 router.get("/", (req, res) => {

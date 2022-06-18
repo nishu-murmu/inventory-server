@@ -11,7 +11,7 @@ export const store = async (req, res, next) => {
       combo: req.body.combo,
     });
     const savedData = await newData.save();
-    res.json(200).json(savedData);
+    res.status(200).json(savedData);
   } catch (err) {
     next(err);
   }

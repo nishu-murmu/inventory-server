@@ -12,6 +12,7 @@ const MasterSKU = mongoose.Schema({
   },
   mastersku: {
     type: String,
+    unique: true,
   },
   combo: {
     type: Array,
