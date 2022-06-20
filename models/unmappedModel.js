@@ -1,13 +1,10 @@
 import mongoose from "mongoose";
 
 const UnMappedSchema = new mongoose.Schema({
-  "STYLE ID": {
+  unmappedsku: {
     type: String,
   },
-  "CATALOG ID": {
-    type: String,
-  },
-  "PRODUCT ID": {
+  mastersku: {
     type: String,
   },
 });

@@ -75,3 +75,36 @@ export const filterCount = async (req, res, next) => {
     next(err);
   }
 };
+export const dispatch = async (req, res, next) => {
+  try {
+    const getList = await Sales.find({
+      status: "dispatch",
+    });
+    res.status(200).json(getList);
+  } catch (err) {
+    next(err);
+  }
+};
+export const updatemapped = async (req, res, next) => {
+  try {
+    const updateMapped = await Sales.updateOne(
+      { _id: req.body.id },
+      {
+        $set: {
+          mastersku: req.body.mastersku,
+        },
+      }
+    );
+    res.status(200).json(updateMapped);
+  } catch (err) {
+    next(err);
+  }
+};
+export const getAll = async (req, res, next) => {
+  try {
+    const getFullList = await Sales.find();
+    res.status(200).json(getFullList);
+  } catch (err) {
+    next(err);
+  }
+};

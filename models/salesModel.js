@@ -17,6 +17,10 @@ const SalesSchema = new mongoose.Schema({
   SKU: {
     type: String,
   },
+  mastersku: {
+    type: String,
+    default: "unmapped",
+  },
   courier: {
     type: String,
   },
