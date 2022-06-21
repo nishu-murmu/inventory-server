@@ -6,7 +6,7 @@ const PurchaseReturnSchema = new mongoose.Schema({
     required: true,
   },
   Date: {
-    type: Date,
+    type: String,
     required: true,
   },
   quantity: {
