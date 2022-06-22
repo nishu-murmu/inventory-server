@@ -6,9 +6,10 @@ import {
   filter,
   awbfilter,
   filterCount,
-  getAll,
   updatemapped,
   dispatch,
+  grouped,
+  getAll,
 } from "../controllers/salesController.js";
 const router = express.Router();
 
@@ -20,6 +21,7 @@ router.put("/filterCount", filterCount);
 router.get("/dispatch", dispatch);
 router.put("/updatemapped", updatemapped);
 router.get("/getall", getAll);
+router.get("/grouped", grouped);
 // troubleshooting
 router.get("/", (req, res) => {
   res.send("Sales working");

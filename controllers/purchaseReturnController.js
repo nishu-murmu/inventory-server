@@ -14,7 +14,6 @@ export const createPurchaseReturn = async (req, res, next) => {
     next(err);
   }
 };
-
 // UPDATE Sales
 export const updatePurchaseReturn = async (req, res, next) => {
   try {
@@ -28,7 +27,6 @@ export const updatePurchaseReturn = async (req, res, next) => {
     next(err);
   }
 };
-
 // DELETE Sales
 export const deletePurchaseReturn = async (req, res, next) => {
   try {
@@ -40,7 +38,6 @@ export const deletePurchaseReturn = async (req, res, next) => {
     next(err);
   }
 };
-
 // GET all Sales
 export const allPurchaseReturn = async (req, res, next) => {
   try {
