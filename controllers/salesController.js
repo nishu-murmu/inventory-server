@@ -1,42 +1,8 @@
 import Sales from "../models/salesModel.js";
+
 // store the scan files data
 export const createArray = async (req, res, next) => {
   try {
-    const uniqueData = await Sales.createIndexes(
-      [
-        {
-          SKU: 1,
-        },
-        {
-          "ORDER ID": 1,
-        },
-        {
-          QTY: 1,
-        },
-        {
-          AWB: 1,
-        },
-        {
-          status: 1,
-        },
-        {
-          courier: 1,
-        },
-        {
-          date: 1,
-        },
-        {
-          firm: 1,
-        },
-        {
-          mastersku: 1,
-        },
-        {
-          "PORTAL\r": 1,
-        },
-      ],
-      { unique: true }
-    );
     const collectedArray = await Sales.insertMany(req.body);
     res.status(200).json(collectedArray);
   } catch (err) {
@@ -145,22 +111,41 @@ export const getAll = async (req, res, next) => {
 };
 export const grouped = async (req, res, next) => {
   try {
-    const groupedData = await Sales.aggregate([
-      {
-        $group: {
-          _id: "$ORDER ID",
-          SKU: { $first: "$SKU" },
-          ORDER_ID: { $first: "$ORDER ID" },
-          AWB: { $first: "$AWB" },
-          status: { $first: "$status" },
-          QTY: { $first: "$QTY" },
-          mastersku: { $first: "$mastersku" },
-          courier: { $first: "$courier" },
-          date: { $first: "$date" },
+    var duplicatesID = [];
+    const groupedData = await Sales.aggregate(
+      [
+        {
+          $group: {
+            _id: {
+              "ORDER ID": "$ORDER ID",
+            },
+            dups: { $addToSet: "$_id" },
+            total: { $sum: 1 },
+          },
         },
-      },
-    ]);
-    res.status(200).json(groupedData);
+        {
+          $match: {
+            total: {
+              $gt: 1,
+            },
+          },
+        },
+      ],
+      {
+        allowDiskUse: true,
+      }
+    );
+    groupedData.forEach((doc) => {
+      doc.dups.shift();
+      doc.dups.forEach((dupId) => {
+        duplicatesID.push(dupId);
+      });
+    });
+    const deleted = await Sales.deleteMany({
+      _id: { $in: duplicatesID },
+    });
+    const finalArray = await Sales.find();
+    res.status(200).json(finalArray);
   } catch (err) {
     next(err);
   }

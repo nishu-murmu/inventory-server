@@ -6,6 +6,7 @@ const SalesSchema = new mongoose.Schema({
   },
   "ORDER ID": {
     type: String,
+    index: { unique: true },
   },
   status: {
     type: String,
@@ -34,5 +35,4 @@ const SalesSchema = new mongoose.Schema({
     type: String,
   },
 });
-
 export default mongoose.model("salesinfos", SalesSchema);

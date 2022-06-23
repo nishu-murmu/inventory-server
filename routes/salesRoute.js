@@ -12,7 +12,6 @@ import {
   getAll,
 } from "../controllers/salesController.js";
 const router = express.Router();
-
 router.post("/create", createArray);
 router.put("/update", update);
 router.put("/awbfilter", awbfilter);
