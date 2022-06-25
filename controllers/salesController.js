@@ -26,6 +26,21 @@ export const update = async (req, res, next) => {
     next(err);
   }
 };
+export const bulkupdate = async (req, res, next) => {
+  try {
+    const bulkupdate = await Sales.updateMany(
+      { AWB: { $in: req.body } },
+      {
+        $set: {
+          status: "dispatch",
+        },
+      }
+    );
+    res.status(200).json(bulkupdate);
+  } catch (err) {
+    next(err);
+  }
+};
 // show the current scanned product
 export const awbfilter = async (req, res, next) => {
   try {
@@ -53,14 +68,6 @@ export const filter = async (req, res, next) => {
         },
       ],
     });
-    res.status(200).json(filterList);
-  } catch (err) {
-    next(err);
-  }
-};
-// filter Count
-export const filterCount = async (req, res, next) => {
-  try {
     const count = await Sales.find({
       $and: [
         {
@@ -70,8 +77,8 @@ export const filterCount = async (req, res, next) => {
           date: { $gte: req.body.sd, $lte: req.body.ed },
         },
       ],
-    }).count();
-    res.status(200).json(count);
+    });
+    res.status(200).json({ filterList, count });
   } catch (err) {
     next(err);
   }

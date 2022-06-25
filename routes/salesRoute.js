@@ -5,22 +5,22 @@ import {
   update,
   filter,
   awbfilter,
-  filterCount,
   updatemapped,
   dispatch,
   grouped,
   getAll,
+  bulkupdate,
 } from "../controllers/salesController.js";
 const router = express.Router();
 router.post("/create", createArray);
 router.put("/update", update);
 router.put("/awbfilter", awbfilter);
 router.put("/filter", filter);
-router.put("/filterCount", filterCount);
 router.get("/dispatch", dispatch);
 router.put("/updatemapped", updatemapped);
 router.get("/getall", getAll);
 router.get("/grouped", grouped);
+router.put("/bulkupdate", bulkupdate);
 // troubleshooting
 router.get("/", (req, res) => {
   res.send("Sales working");

@@ -5,7 +5,6 @@ import {
   update,
   awbfilter,
   filter,
-  filterCount,
   received,
 } from "../controllers/salesReturnController.js";
 
@@ -16,7 +15,6 @@ router.put("/update", update);
 router.put("/awbfilter", awbfilter);
 router.get("/received", received);
 router.put("/filter", filter);
-router.put("/filterCount", filterCount);
 // troubleshooting
 router.get("/", (req, res) => {
   res.send("Sales Return working");

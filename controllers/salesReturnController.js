@@ -60,13 +60,6 @@ export const filter = async (req, res, next) => {
         },
       ],
     });
-    res.status(200).json(filterList);
-  } catch (err) {
-    next(err);
-  }
-};
-export const filterCount = async (req, res, next) => {
-  try {
     const count = await SalesReturn.find({
       $and: [
         {
@@ -77,7 +70,7 @@ export const filterCount = async (req, res, next) => {
         },
       ],
     }).count();
-    res.status(200).json(count);
+    res.status(200).json({ filterList, count });
   } catch (err) {
     next(err);
   }
