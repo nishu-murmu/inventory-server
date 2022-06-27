@@ -22,7 +22,7 @@ export const update = async (req, res, next) => {
       }
     );
     const searchfilterList = await Sales.find({
-      SKU: req.body.sku,
+      $and: [{ SKU: req.body.sku }, { status: req.body.status }],
     });
     res.status(200).json({ allSales, searchfilterList });
   } catch (err) {
@@ -57,17 +57,7 @@ export const filter = async (req, res, next) => {
         },
       ],
     });
-    const count = await Sales.find({
-      $and: [
-        {
-          status: { $eq: req.body.filter },
-        },
-        {
-          date: { $gte: req.body.sd, $lte: req.body.ed },
-        },
-      ],
-    });
-    res.status(200).json({ filterList, count });
+    res.status(200).json(filterList);
   } catch (err) {
     next(err);
   }
