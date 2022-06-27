@@ -7,7 +7,6 @@ import {
   updatemapped,
   dispatch,
   grouped,
-  getAll,
   bulkupdate,
 } from "../controllers/salesController.js";
 const router = express.Router();
@@ -16,7 +15,6 @@ router.put("/update", update);
 router.put("/filter", filter);
 router.get("/dispatch", dispatch);
 router.put("/updatemapped", updatemapped);
-router.get("/getall", getAll);
 router.get("/grouped", grouped);
 router.put("/bulkupdate", bulkupdate);
 // troubleshooting

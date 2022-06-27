@@ -21,10 +21,8 @@ export const update = async (req, res, next) => {
         },
       }
     );
-    const searchfilterList = await Sales.find({
-      $and: [{ SKU: req.body.sku }, { status: req.body.status }],
-    });
-    res.status(200).json({ allSales, searchfilterList });
+
+    res.status(200).json(allSales);
   } catch (err) {
     next(err);
   }
@@ -57,7 +55,10 @@ export const filter = async (req, res, next) => {
         },
       ],
     });
-    res.status(200).json(filterList);
+    const searchfilterList = await Sales.find({
+      $and: [{ SKU: req.body.enteredAWB }, { status: req.body.status }],
+    });
+    res.status(200).json({ filterList, searchfilterList });
   } catch (err) {
     next(err);
   }
@@ -83,14 +84,6 @@ export const updatemapped = async (req, res, next) => {
       }
     );
     res.status(200).json(updateMapped);
-  } catch (err) {
-    next(err);
-  }
-};
-export const getAll = async (req, res, next) => {
-  try {
-    const getList = await Sales.find();
-    res.status(200).json(getList);
   } catch (err) {
     next(err);
   }
