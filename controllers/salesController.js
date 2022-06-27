@@ -12,7 +12,7 @@ export const createArray = async (req, res, next) => {
 // update the status
 export const update = async (req, res, next) => {
   try {
-    const allSales = await Sales.updateOne(
+    const allSales = await Sales.findOneAndUpdate(
       { AWB: req.body.awb },
       {
         $set: {
@@ -21,7 +21,10 @@ export const update = async (req, res, next) => {
         },
       }
     );
-    res.status(200).json(allSales);
+    const searchfilterList = await Sales.find({
+      SKU: req.body.sku,
+    });
+    res.status(200).json({ allSales, searchfilterList });
   } catch (err) {
     next(err);
   }
@@ -37,20 +40,6 @@ export const bulkupdate = async (req, res, next) => {
       }
     );
     res.status(200).json(bulkupdate);
-  } catch (err) {
-    next(err);
-  }
-};
-// show the current scanned product
-export const awbfilter = async (req, res, next) => {
-  try {
-    const filterList = await Sales.find({
-      AWB: req.body.awb,
-      $set: {
-        date: req.body.date,
-      },
-    });
-    res.status(200).json(filterList);
   } catch (err) {
     next(err);
   }

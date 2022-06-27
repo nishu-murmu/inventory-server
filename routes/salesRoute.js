@@ -4,7 +4,6 @@ import {
   createArray,
   update,
   filter,
-  awbfilter,
   updatemapped,
   dispatch,
   grouped,
@@ -14,7 +13,6 @@ import {
 const router = express.Router();
 router.post("/create", createArray);
 router.put("/update", update);
-router.put("/awbfilter", awbfilter);
 router.put("/filter", filter);
 router.get("/dispatch", dispatch);
 router.put("/updatemapped", updatemapped);
