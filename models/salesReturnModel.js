@@ -6,12 +6,17 @@ const SalesReturnSchema = mongoose.Schema({
   },
   "Order ID": {
     type: String,
+    index: { unique: true },
   },
   "AWB NO": {
     type: String,
   },
   SKU: {
     type: String,
+  },
+  mastersku: {
+    type: String,
+    default: "unmapped",
   },
   QTY: {
     type: String,

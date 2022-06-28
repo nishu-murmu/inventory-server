@@ -2,7 +2,7 @@ import LiveStock from "../models/liveModel.js";
 
 export const create = async (req, res, next) => {
   try {
-    const { mastersku, purchase, purchaseReturn, sales, salesReturn } =
+    const { mastersku, purchase, purchaseReturn, sales, salesReturn, skus } =
       req.body;
     const createList = new LiveStock({
       mastersku: mastersku,
@@ -10,6 +10,7 @@ export const create = async (req, res, next) => {
       purchaseReturn: purchaseReturn,
       sales: sales,
       salesReturn: salesReturn,
+      skus: skus,
       livestock:
         parseInt(purchase) + parseInt(salesReturn) <
         parseInt(sales) + parseInt(purchaseReturn)

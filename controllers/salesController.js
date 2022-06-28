@@ -56,34 +56,38 @@ export const filter = async (req, res, next) => {
       ],
     });
     const searchfilterList = await Sales.find({
-      $and: [{ SKU: req.body.enteredAWB }, { status: req.body.status }],
+      $or: [
+        { $and: [{ SKU: req.body.enteredAWB }, { status: req.body.status }] },
+        { $and: [{ AWB: req.body.enteredAWB }, { status: req.body.status }] },
+        {
+          $and: [
+            { "ORDER ID": req.body.enteredAWB },
+            { status: req.body.status },
+          ],
+        },
+      ],
     });
     res.status(200).json({ filterList, searchfilterList });
   } catch (err) {
     next(err);
   }
 };
+// wrong hai bhai
 export const dispatch = async (req, res, next) => {
   try {
     const getList = await Sales.find({
       status: "dispatch",
+      mastersku: "unmapped",
     });
-    res.status(200).json(getList);
-  } catch (err) {
-    next(err);
-  }
-};
-export const updatemapped = async (req, res, next) => {
-  try {
-    const updateMapped = await Sales.updateOne(
-      { _id: req.body.id },
-      {
-        $set: {
-          mastersku: req.body.mastersku,
-        },
-      }
+    const searchfilterList = getList.filter(
+      (item) => item.SKU === req.body.sku
     );
-    res.status(200).json(updateMapped);
+    const updatemaster = getList.map((item) => {
+      return req.body.sku === item.SKU
+        ? (item.mastersku = req.body.mastersku)
+        : (item.mastersku = "unmapped");
+    });
+    res.status(200).json({ getList, searchfilterList, updatemaster });
   } catch (err) {
     next(err);
   }

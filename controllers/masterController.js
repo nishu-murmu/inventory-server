@@ -26,7 +26,21 @@ export const getAll = async (req, res, next) => {
     next(err);
   }
 };
-
+export const groupsku = async (req, res, next) => {
+  try {
+    const groupedmaster = await MasterSKU.updateOne(
+      {
+        mastersku: req.body.mastersku,
+      },
+      {
+        $push: { skus: req.body.sku },
+      }
+    );
+    res.status(200).json(groupedmaster);
+  } catch (err) {
+    next(err);
+  }
+};
 export const mergeData = async (req, res, next) => {
   try {
     const mergedList = await MasterSKU.aggregate([

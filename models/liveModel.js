@@ -4,6 +4,9 @@ const LiveStock = mongoose.Schema({
   mastersku: {
     type: String,
   },
+  skus: {
+    type: Array,
+  },
   opening_stock: {
     type: Number,
   },

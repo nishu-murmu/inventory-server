@@ -4,7 +4,7 @@ import {
   createArray,
   update,
   filter,
-  updatemapped,
+  // updatemapped,
   dispatch,
   grouped,
   bulkupdate,
@@ -13,8 +13,8 @@ const router = express.Router();
 router.post("/create", createArray);
 router.put("/update", update);
 router.put("/filter", filter);
-router.get("/dispatch", dispatch);
-router.put("/updatemapped", updatemapped);
+router.put("/dispatch", dispatch);
+// router.put("/updatemapped", updatemapped);
 router.get("/grouped", grouped);
 router.put("/bulkupdate", bulkupdate);
 // troubleshooting
