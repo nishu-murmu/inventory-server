@@ -10,7 +10,7 @@ const router = express.Router();
 
 router.post("/create", store);
 router.get("/getAll", getAll);
-router.put("/groupedmaster", groupsku);
+router.put("/groupedsku", groupsku);
 router.get("/merged", mergeData);
 // troubleshooting
 router.get("/", (req, res) => {

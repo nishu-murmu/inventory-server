@@ -72,22 +72,35 @@ export const filter = async (req, res, next) => {
     next(err);
   }
 };
-// wrong hai bhai
 export const dispatch = async (req, res, next) => {
   try {
-    const getList = await Sales.find({
-      status: "dispatch",
-      mastersku: "unmapped",
-    });
-    const searchfilterList = getList.filter(
-      (item) => item.SKU === req.body.sku
+    const groupedData = await Sales.aggregate([
+      { $match: { status: "dispatch", mastersku: "unmapped" } },
+      { $group: { _id: "$SKU", total: { $sum: "$QTY" } } },
+    ])
+      .collation({ locale: "en" })
+      .sort({ _id: 1 });
+
+    const unmappedskus = await Sales.aggregate([
+      { $match: { status: "dispatch", mastersku: "unmapped" } },
+    ]);
+
+    const findsku = await Sales.updateMany(
+      {
+        status: "dispatch",
+        mastersku: "unmapped",
+        SKU: req.body.selectedSku,
+      },
+      {
+        $set: {
+          mastersku: req.body.mastersku,
+        },
+      }
     );
-    const updatemaster = getList.map((item) => {
-      return req.body.sku === item.SKU
-        ? (item.mastersku = req.body.mastersku)
-        : (item.mastersku = "unmapped");
-    });
-    res.status(200).json({ getList, searchfilterList, updatemaster });
+    const searchfilterList = groupedData.filter(
+      (item) => item._id === req.body.sku
+    );
+    res.status(200).json({ searchfilterList, groupedData, findsku });
   } catch (err) {
     next(err);
   }
