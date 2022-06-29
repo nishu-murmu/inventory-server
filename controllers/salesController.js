@@ -81,10 +81,6 @@ export const dispatch = async (req, res, next) => {
       .collation({ locale: "en" })
       .sort({ _id: 1 });
 
-    const unmappedskus = await Sales.aggregate([
-      { $match: { status: "dispatch", mastersku: "unmapped" } },
-    ]);
-
     const findsku = await Sales.updateMany(
       {
         status: "dispatch",

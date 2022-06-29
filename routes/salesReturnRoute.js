@@ -6,7 +6,7 @@ import {
   filter,
   received,
   grouped,
-  updatemapped,
+  receivedmapped,
 } from "../controllers/salesReturnController.js";
 
 const router = express.Router();
@@ -15,8 +15,7 @@ router.post("/create", createSalesReturn);
 router.put("/update", update);
 router.get("/received", received);
 router.put("/filter", filter);
-router.get("/received", received);
-router.put("/updatemapped", updatemapped);
+router.get("/receivedmapped", receivedmapped);
 router.get("/grouped", grouped);
 // troubleshooting
 router.get("/", (req, res) => {

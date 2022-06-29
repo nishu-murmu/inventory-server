@@ -47,7 +47,7 @@ export const filter = async (req, res, next) => {
         },
       ],
     });
-    const searchfilterList = await Sales.find({
+    const searchfilterList = await SalesReturn.find({
       $or: [
         { $and: [{ SKU: req.body.enteredAWB }, { status: req.body.status }] },
         {
@@ -86,17 +86,31 @@ export const received = async (req, res, next) => {
     next(err);
   }
 };
-export const updatemapped = async (req, res, next) => {
+export const receivedmapped = async (req, res, next) => {
   try {
-    const updateMapped = await SalesReturn.updateOne(
-      { _id: req.body.id },
+    const groupedData = await SalesReturn.aggregate([
+      { $match: { status: "received", mastersku: "unmapped" } },
+      { $group: { _id: "$SKU", total: { $sum: "$QTY" } } },
+    ])
+      .collation({ locale: "en" })
+      .sort({ _id: 1 });
+
+    const findsku = await SalesReturn.updateMany(
+      {
+        status: "received",
+        mastersku: "unmapped",
+        SKU: req.body.selectedSku,
+      },
       {
         $set: {
           mastersku: req.body.mastersku,
         },
       }
     );
-    res.status(200).json(updateMapped);
+    const searchfilterList = groupedData.filter(
+      (item) => item._id === req.body.sku
+    );
+    res.status(200).json({ searchfilterList, groupedData, findsku });
   } catch (err) {
     next(err);
   }
