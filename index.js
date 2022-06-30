@@ -8,7 +8,6 @@ import cookieParser from "cookie-parser";
 import AuthRoute from "./routes/authRoute.js";
 import LiveRoute from "./routes/liveRoute.js";
 import MasterRoute from "./routes/masterRoute.js";
-import UnMappedRoute from "./routes/unmappedRoute.js";
 import SalesRoute from "./routes/salesRoute.js";
 import SalesReturnRoute from "./routes/salesReturnRoute.js";
 import PurchaseRoute from "./routes/purchaseRoute.js";
@@ -39,7 +38,6 @@ app.use(
 app.use("/api/auth", AuthRoute);
 app.use("/api/livestock", LiveRoute);
 app.use("/api/master", MasterRoute);
-app.use("/api/unmapped", UnMappedRoute);
 app.use("/api/purchase", PurchaseRoute);
 app.use("/api/purchaseReturn", PurchaseReturnRoute);
 app.use("/api/sales", SalesRoute);

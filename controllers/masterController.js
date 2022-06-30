@@ -1,5 +1,5 @@
 import MasterSKU from "../models/masterModel.js";
-
+import Sales from "../models/salesModel.js";
 // store all the master SKUs in database
 export const store = async (req, res, next) => {
   try {
@@ -16,7 +16,17 @@ export const store = async (req, res, next) => {
     next(err);
   }
 };
-
+export const mastersku = async (req, res, next) => {
+  try {
+    const total = await Sales.aggregate([
+      { $match: { status: "dispatch" } },
+      { $group: { _id: "$mastersku", total: { $sum: { $toInt: "$QTY" } } } },
+    ]);
+    res.status(200).json(total);
+  } catch (err) {
+    next(err);
+  }
+};
 // get all the master SKUs
 export const getAll = async (req, res, next) => {
   try {
@@ -41,6 +51,7 @@ export const groupsku = async (req, res, next) => {
     next(err);
   }
 };
+// this method is wrong
 export const mergeData = async (req, res, next) => {
   try {
     const mergedList = await MasterSKU.aggregate([

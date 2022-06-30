@@ -43,7 +43,9 @@ export const deleteList = async (req, res, next) => {
 
 export const getAll = async (req, res, next) => {
   try {
-    const final = await LiveStock.find();
+    const final = await LiveStock.find()
+      .collation({ locale: "en" })
+      .sort({ mastersku: 1 });
     res.status(200).json(final);
   } catch (err) {
     next(err);
