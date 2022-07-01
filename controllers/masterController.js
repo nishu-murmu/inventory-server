@@ -1,5 +1,8 @@
 import MasterSKU from "../models/masterModel.js";
 import Sales from "../models/salesModel.js";
+import SalesReturn from "../models/salesReturnModel.js";
+import Purchase from "../models/purchaseModel.js";
+import PurchaseReturn from "../models/purchaseReturnModel.js";
 // store all the master SKUs in database
 export const store = async (req, res, next) => {
   try {
@@ -18,11 +21,19 @@ export const store = async (req, res, next) => {
 };
 export const mastersku = async (req, res, next) => {
   try {
-    const total = await Sales.aggregate([
+    const salestotal = await Sales.aggregate([
       { $match: { status: "dispatch" } },
-      { $group: { _id: "$mastersku", total: { $sum: { $toInt: "$QTY" } } } },
+      { $group: { _id: "$mastersku", quantity: { $sum: { $toInt: "$QTY" } } } },
     ]);
-    res.status(200).json(total);
+    const salesreturntotal = await SalesReturn.aggregate([
+      { $match: { status: "dispatch" } },
+      { $group: { _id: "$mastersku", quantity: { $sum: { $toInt: "$QTY" } } } },
+    ]);
+    const purchase = await Purchase.find();
+    const purchaseReturn = await PurchaseReturn.find();
+    res
+      .status(200)
+      .json({ salestotal, salesreturntotal, purchase, purchaseReturn });
   } catch (err) {
     next(err);
   }

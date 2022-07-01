@@ -46,6 +46,7 @@ export const bulkupdate = async (req, res, next) => {
 export const filter = async (req, res, next) => {
   try {
     const filterList = await Sales.find({
+      // status: { $eq: req.body.filter },
       $and: [
         {
           status: { $eq: req.body.filter },
