@@ -21,19 +21,63 @@ export const store = async (req, res, next) => {
 };
 export const mastersku = async (req, res, next) => {
   try {
+    const allMasterSKUs = await MasterSKU.find(
+      {
+        mastersku: { $exists: true, $ne: "" },
+      },
+      {
+        mastersku: 1,
+      }
+    ).sort({ mastersku: 1 });
     const salestotal = await Sales.aggregate([
       { $match: { status: "dispatch" } },
       { $group: { _id: "$mastersku", quantity: { $sum: { $toInt: "$QTY" } } } },
-    ]);
+    ]).sort({ _id: 1 });
+    let merged = [];
+
     const salesreturntotal = await SalesReturn.aggregate([
       { $match: { status: "dispatch" } },
       { $group: { _id: "$mastersku", quantity: { $sum: { $toInt: "$QTY" } } } },
-    ]);
-    const purchase = await Purchase.find();
-    const purchaseReturn = await PurchaseReturn.find();
-    res
-      .status(200)
-      .json({ salestotal, salesreturntotal, purchase, purchaseReturn });
+    ]).sort({ _id: 1 });
+    const purchase = await Purchase.find(
+      {
+        quantity: { $exists: true, $ne: "" },
+      },
+      {
+        mastersku: 1,
+        quantity: 1,
+      }
+    ).sort({ mastersku: 1 });
+    const purchaseReturn = await PurchaseReturn.find(
+      {
+        quantity: { $exists: true, $ne: "" },
+      },
+      {
+        mastersku: 1,
+        quantity: 1,
+      }
+    ).sort({ mastersku: 1 });
+    for (let i = 0; i < allMasterSKUs.length; i++) {
+      merged.push({
+        ...salestotal.find((item) => item._id === allMasterSKUs[i].mastersku),
+        ...salesreturntotal.find(
+          (item) => item._id === allMasterSKUs[i].mastersku
+        ),
+        ...purchase.find(
+          (item) => item.mastersku === allMasterSKUs[i].mastersku
+        ),
+        ...purchaseReturn.find(
+          (item) => item.mastersku === allMasterSKUs[i].mastersku
+        ),
+      });
+    }
+    res.status(200).json({
+      salestotal,
+      salesreturntotal,
+      purchase,
+      purchaseReturn,
+      merged,
+    });
   } catch (err) {
     next(err);
   }
