@@ -43,7 +43,7 @@ export const filter = async (req, res, next) => {
           status: { $eq: req.body.filter },
         },
         {
-          date: { $gte: req.body.sd, $lte: req.body.ed },
+          "Return Received Date": { $gte: req.body.sd, $lte: req.body.ed },
         },
       ],
     });
@@ -76,17 +76,6 @@ export const filter = async (req, res, next) => {
   }
 };
 export const received = async (req, res, next) => {
-  try {
-    const getList = await SalesReturn.find({
-      status: "received",
-      mastersku: "unmapped",
-    });
-    res.status(200).json(getList);
-  } catch (err) {
-    next(err);
-  }
-};
-export const receivedmapped = async (req, res, next) => {
   try {
     const groupedData = await SalesReturn.aggregate([
       { $match: { status: "received", mastersku: "unmapped" } },
@@ -123,7 +112,7 @@ export const grouped = async (req, res, next) => {
         {
           $group: {
             _id: {
-              "ORDER ID": "$ORDER ID",
+              "ORDER ID": "$Order ID",
             },
             dups: { $addToSet: "$_id" },
             total: { $sum: 1 },
