@@ -34,10 +34,20 @@ export const mastersku = async (req, res, next) => {
       { $group: { _id: "$mastersku", quantity: { $sum: { $toInt: "$QTY" } } } },
     ]).sort({ _id: 1 });
     let merged = [];
-
     const salesreturntotal = await SalesReturn.aggregate([
       { $match: { status: "received" } },
-      { $group: { _id: "$mastersku", quantity: { $sum: { $toInt: "$QTY" } } } },
+      {
+        $group: {
+          _id: "$mastersku",
+          quantity: {
+            $sum: {
+              $toInt: {
+                $cond: { if: { $eq: ["$QTY", ""] }, then: 0, else: "$QTY" },
+              },
+            },
+          },
+        },
+      },
     ]).sort({ _id: 1 });
     const purchase = await Purchase.find(
       {
