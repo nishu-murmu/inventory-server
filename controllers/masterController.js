@@ -36,7 +36,7 @@ export const mastersku = async (req, res, next) => {
     let merged = [];
 
     const salesreturntotal = await SalesReturn.aggregate([
-      { $match: { status: "dispatch" } },
+      { $match: { status: "received" } },
       { $group: { _id: "$mastersku", quantity: { $sum: { $toInt: "$QTY" } } } },
     ]).sort({ _id: 1 });
     const purchase = await Purchase.find(
