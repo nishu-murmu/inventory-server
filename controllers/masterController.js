@@ -29,11 +29,11 @@ export const mastersku = async (req, res, next) => {
         mastersku: 1,
       }
     ).sort({ mastersku: 1 });
+    let merged = [];
     const salestotal = await Sales.aggregate([
       { $match: { status: "dispatch" } },
       { $group: { _id: "$mastersku", quantity: { $sum: { $toInt: "$QTY" } } } },
     ]).sort({ _id: 1 });
-    let merged = [];
     const salesreturntotal = await SalesReturn.aggregate([
       { $match: { status: "received" } },
       {
@@ -67,16 +67,20 @@ export const mastersku = async (req, res, next) => {
         quantity: 1,
       }
     ).sort({ mastersku: 1 });
+    // merge sales,salesreturn,purchase,purchasereturn quantity
     for (let i = 0; i < allMasterSKUs.length; i++) {
       merged.push({
-        ...salestotal.find((item) => item._id === allMasterSKUs[i].mastersku),
-        ...salesreturntotal.find(
-          (item) => item._id === allMasterSKUs[i].mastersku
-        ),
-        ...purchase.find(
+        ...allMasterSKUs.filter(
           (item) => item.mastersku === allMasterSKUs[i].mastersku
         ),
-        ...purchaseReturn.find(
+        ...salestotal.filter((item) => item._id === allMasterSKUs[i].mastersku),
+        ...salesreturntotal.filter(
+          (item) => item._id === allMasterSKUs[i].mastersku
+        ),
+        ...purchase.filter(
+          (item) => item.mastersku === allMasterSKUs[i].mastersku
+        ),
+        ...purchaseReturn.filter(
           (item) => item.mastersku === allMasterSKUs[i].mastersku
         ),
       });
