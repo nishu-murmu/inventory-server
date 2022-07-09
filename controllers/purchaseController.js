@@ -19,8 +19,14 @@ export const createPurchase = async (req, res, next) => {
 export const updatePurchase = async (req, res, next) => {
   try {
     const updatePurchase = await Purchase.updateOne(
-      { mastersku: req.body.mastersku },
-      { $set: req.body }
+      { mastersku: req.body.checkmastersku },
+      {
+        $set: {
+          mastersku: req.body.mastersku,
+          Date: req.body.date,
+          quantity: req.body.quantity,
+        },
+      }
     );
     res.status(200).json(updatePurchase);
   } catch (err) {

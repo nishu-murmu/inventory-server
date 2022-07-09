@@ -14,13 +14,18 @@ export const createPurchaseReturn = async (req, res, next) => {
     next(err);
   }
 };
-// UPDATE Sales
+// UPDATE SalesReturn
 export const updatePurchaseReturn = async (req, res, next) => {
   try {
-    const updatePurchaseReturn = await PurchaseReturn.findOne(
-      { mastersku: req.body.mastersku },
-      { $set: req.body },
-      { new: true }
+    const updatePurchaseReturn = await PurchaseReturn.updateOne(
+      { mastersku: req.body.checkmastersku },
+      {
+        $set: {
+          mastersku: req.body.mastersku,
+          Date: req.body.date,
+          quantity: req.body.quantity,
+        },
+      }
     );
     res.status(200).json(updatePurchaseReturn);
   } catch (err) {
