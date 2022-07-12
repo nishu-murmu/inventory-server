@@ -54,6 +54,12 @@ export const filter = async (req, res, next) => {
         },
         {
           $and: [
+            { mastersku: req.body.enteredAWB },
+            { status: req.body.status },
+          ],
+        },
+        {
+          $and: [
             { "Order ID": req.body.enteredAWB },
             { status: req.body.status },
           ],

@@ -59,6 +59,12 @@ export const filter = async (req, res, next) => {
     const searchfilterList = await Sales.find({
       $or: [
         { $and: [{ SKU: req.body.enteredAWB }, { status: req.body.status }] },
+        {
+          $and: [
+            { mastersku: req.body.enteredAWB },
+            { status: req.body.status },
+          ],
+        },
         { $and: [{ AWB: req.body.enteredAWB }, { status: req.body.status }] },
         {
           $and: [
