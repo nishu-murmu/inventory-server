@@ -32,7 +32,18 @@ export const mastersku = async (req, res, next) => {
     let merged = [];
     const salestotal = await Sales.aggregate([
       { $match: { status: "dispatch" } },
-      { $group: { _id: "$mastersku", quantity: { $sum: { $toInt: "$QTY" } } } },
+      {
+        $group: {
+          _id: "$mastersku",
+          quantity: {
+            $sum: {
+              $toInt: {
+                $cond: { if: { $eq: ["$QTY", ""] }, then: 0, else: "$QTY" },
+              },
+            },
+          },
+        },
+      },
     ]).sort({ _id: 1 });
     const salesreturntotal = await SalesReturn.aggregate([
       { $match: { status: "received" } },
@@ -112,7 +123,7 @@ export const groupsku = async (req, res, next) => {
         mastersku: req.body.mastersku,
       },
       {
-        $push: { skus: req.body.sku },
+        $push: { skus: req.body.selectedSku },
       }
     );
     res.status(200).json(groupedmaster);

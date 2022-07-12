@@ -43,7 +43,7 @@ export const login = async (req, res, next) => {
         httpOnly: true,
       })
       .status(200)
-      .json(token);
+      .json({ token, ...others });
   } catch (err) {
     next(err);
   }
